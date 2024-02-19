@@ -10,55 +10,55 @@ namespace GA_Queue
     {
         class QueueNode<T>
         {
-            public T Value { get; set; } // The value stored in the node.
-            public QueueNode<T> Next { get; set; } // Reference to the next node in the queue.
-            public QueueNode<T> Previous { get; set; } // Reference to the previous node in the queue.
+            public T Value { get; set; } // Node stored value
+            public QueueNode<T> Next { get; set; } // next Node value
+            public QueueNode<T> Previous { get; set; } // last node value
 
             public QueueNode(T value)
             {
-                Value = value; // Set the value of the node.
-                Next = null; // Initially, the next node is null.
-                Previous = null; // Initially, the previous node is null.
+                Value = value; // Value is node value
+                Next = null; // next node starts Null
+                Previous = null; // last node starts null
             }
         }
 
 
-        private QueueNode<T> front; // The front node of the queue.
-        private QueueNode<T> rear; // The rear node of the queue.
-        private int count; // The number of elements in the queue.
+        private QueueNode<T> front; // first or front node
+        private QueueNode<T> rear; // last of rear node
+        private int count; //  count
 
         public int Count
         {
-            get { return count; } // Getter for count.
+            get { return count; } // get count
         }
 
         public Queue()
         {
-            front = null; // Initially, the front is null as the queue is empty.
-            rear = null; // Initially, the rear is also null.
-            count = 0; // The count of elements starts at 0.
+            front = null; // starts empty
+            rear = null; // starts empty
+            count = 0; // starts at 0/ starts empty
         }
 
         public void Enqueue(T value)
         {
-            QueueNode<T> newNode = new QueueNode<T>(value); // Create a new node with the value.
+            QueueNode<T> newNode = new QueueNode<T>(value); // New node value
 
             if (rear == null)
             {
-                // If the queue is empty, both front and rear are the new node.
+                // If empty front and rear are new nodes
                 front = newNode;
                 rear = newNode;
             }
             else
             {
-                // Link the new node after the current rear.
+                // new node is after current rear node
                 rear.Next = newNode;
                 newNode.Previous = rear;
-                // Update the rear to be the new node.
+                // update the current node to be new node
                 rear = newNode;
             }
 
-            count++; // Increment the count of elements.
+            count++; // add to count
         }
 
         public T Dequeue()
@@ -66,17 +66,17 @@ namespace GA_Queue
             if (front == null)
                 throw new InvalidOperationException("Queue is empty."); // Check for an empty queue.
 
-            T value = front.Value; // Store the value to return.
+            T value = front.Value; // return value
 
-            // Move the front pointer to the next node.
+            // move to next front node
             front = front.Next;
 
             if (front == null)
-                rear = null; // If the queue becomes empty, adjust the rear as well.
+                rear = null; // if queue becomes empty change rear as well
             else
                 front.Previous = null; // Remove the reference to the dequeued node.
 
-            count--; // Decrement the count of elements.
+            count--; // lose value 
             return value; // Return the dequeued value.
         }
 
